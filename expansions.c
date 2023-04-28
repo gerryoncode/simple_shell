@@ -20,14 +20,14 @@ void expand_variables(data_of_program *data)
 		else if (line[i] == '$' && line[i + 1] == '?')
 		{
 			line[i] = '\0';
-			long_to_string(errno, expansion, 10);
+			long_to_str(errno, expansion, 10);
 			buffer_add(line, expansion);
 			buffer_add(line, data->input_line + i + 2);
 		}
 		else if (line[i] == '$' && line[i + 1] == '$')
 		{
 			line[i] = '\0';
-			long_to_string(getpid(), expansion, 10);
+			long_to_str(getpid(), expansion, 10);
 			buffer_add(line, expansion);
 			buffer_add(line, data->input_line + i + 2);
 		}

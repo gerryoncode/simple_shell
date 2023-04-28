@@ -32,7 +32,7 @@ int _print_error(int errorcode, data_of_program *data)
 {
 	char n_as_string[10] = {'\0'};
 
-	long_to_string((long) data->exec_counter, n_as_string, 10);
+	long_to_str((long) data->exec_counter, n_as_string, 10);
 
 	if (errorcode == 2 || errorcode == 3)
 	{

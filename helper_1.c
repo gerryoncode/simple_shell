@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * free_recurr_data - free the fields needed each loop
+ * free_recurr_data - free the field in each loop
  * @data: struct of the program's data
  * Return: Nothing
  */
@@ -37,21 +37,20 @@ void free_every_data(data_of_program *data)
 }
 
 /**
- * free_array_of_pointers - frees each pointer of an array of pointers and the
- * array too
+ * free_array_of_pointers - frees each pointers of array
  * @array: array of pointers
  * Return: nothing
  */
-void free_array_of_pointers(char **array)
+void free_array_of_pointers(char **arr)
 {
-	int i;
+	int j;
 
-	if (array != NULL)
+	if (arr != NULL)
 	{
-		for (i = 0; array[i]; i++)
-			free(array[i]);
+		for (j = 0; arr[j]; j++)
+			free(arr[j]);
 
-		free(array);
-		array = NULL;
+		free(arr);
+		arr = NULL;
 	}
 }
