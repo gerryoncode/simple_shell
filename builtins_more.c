@@ -20,7 +20,7 @@ int builtin_exit(data_of_program *data)
 			}
 		errno = _atoi(data->tokens[1]);
 	}
-	free_all_data(data);
+	free_every_data(data);
 	exit(errno);
 }
 

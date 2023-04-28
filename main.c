@@ -11,9 +11,9 @@ int main(int argc, char *argv[], char *env[])
 	data_of_program data_struct = {NULL}, *dataVal = &data_struct;
 	char *promptStr = "";
 
-	inicialize_data(dataVal, argc, argv, env);
+	init_data(dataVal, argc, argv, env);
 
-	signal(SIGINT, handle_ctrl_c);
+	signal(SIGINT, ctrl_c_handler);
 
 	if (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO) && argc == 1)
 	{
@@ -21,28 +21,28 @@ int main(int argc, char *argv[], char *env[])
 		promptStr = PROMPT_MSG;
 	}
 	errno = 0;
-	sisifo(promptStr, dataVal);
+	infi_prompt(promptStr, dataVal);
 	return (0);
 }
 
 /**
- * handle_ctrl_c - print new line prompt SIGINT (ctrl + c) is pressed
+ * ctrl_c_handler - print new line prompt SIGINT (ctrl + c) is pressed
  * @UNUSED: option of the prototype
  */
-void handle_ctrl_c(int opr UNUSED)
+void ctrl_c_handler(int opr UNUSED)
 {
 	_print("\n");
 	_print(PROMPT_MSG);
 }
 
 /**
- * inicialize_data - init the struct with the program info
+ * init_data - init the struct with the program info
  * @data: pointer
  * @argv: array of arg passed to program
  * @env: environ passed to the program
  * @argc: no of values received from the command line
  */
-void inicialize_data(data_of_program *data, int argc, char *argv[], char **env)
+void init_data(data_of_program *data, int argc, char *argv[], char **env)
 {
 	int i = 0;
 
@@ -84,36 +84,36 @@ void inicialize_data(data_of_program *data, int argc, char *argv[], char **env)
 	}
 }
 /**
- * sisifo - its a infinite loop that shows the prompt
+ * infi_prompt - its a infinite loop that shows the prompt
  * @prompt: prompt to be printed
  * @data: infinite loop to display prompt
  */
-void sisifo(char *prompt, data_of_program *data)
+void infi_prompt(char *prompt, data_of_program *data)
 {
-	int error_code = 0, string_len = 0;
+	int err_code = 0, str_len = 0;
 
 	while (++(data->exec_counter))
 	{
 		_print(prompt);
-		error_code = string_len = _getline(data);
+		err_code = str_len = _getline(data);
 
-		if (error_code == EOF)
+		if (err_code == EOF)
 		{
-			free_all_data(data);
+			free_every_data(data);
 			exit(errno);
 		}
-		if (string_len >= 1)
+		if (str_len >= 1)
 		{
 			expand_alias(data);
 			expand_variables(data);
 			tokenize(data);
 			if (data->tokens[0])
 			{
-				error_code = execute(data);
-				if (error_code != 0)
-					_print_error(error_code, data);
+				err_code = execute(data);
+				if (err_code != 0)
+					_print_error(err_code, data);
 			}
-			free_recurrent_data(data);
+			free_recurr_data(data);
 		}
 	}
 }
